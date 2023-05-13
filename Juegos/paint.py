@@ -10,8 +10,10 @@ Exercises
 """
 
 from turtle import *
-
+#Se importo toda la liberia turtle
+import turtle
 from freegames import vector
+
 
 
 def line(start, end):
@@ -36,9 +38,18 @@ def square(start, end):
     end_fill()
 
 
+# Se usa turtle para generar el circulo
 def circle(start, end):
     """Draw circle from start to end."""
-    pass  # TODO
+    t = turtle.Turtle()
+    up()
+    goto(start.x, start.y)
+    down()
+    begin_fill()
+    r = 25
+    t.circle(r,)
+
+    end_fill()
 
 
 def rectangle(start, end):
@@ -79,6 +90,9 @@ onkey(lambda: color('white'), 'W')
 onkey(lambda: color('green'), 'G')
 onkey(lambda: color('blue'), 'B')
 onkey(lambda: color('red'), 'R')
+#Se anade el color amarillo
+onkey(lambda: color('yellow'), 'Y')
+
 onkey(lambda: store('shape', line), 'l')
 onkey(lambda: store('shape', square), 's')
 onkey(lambda: store('shape', circle), 'c')
