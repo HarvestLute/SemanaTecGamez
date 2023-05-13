@@ -23,6 +23,7 @@ def tap(x, y):
     if not inside(ball):
         ball.x = -199
         ball.y = -199
+        #Se aumento la velocidad de la pelota disminuyendo el denominador de la division
         speed.x = (x + 200) / 25
         speed.y = (y + 200) / 25
 
@@ -53,9 +54,9 @@ def move():
         y = randrange(-150, 150)
         target = vector(200, y)
         targets.append(target)
-
+    #Se aumento la velocidad de los objetivos
     for target in targets:
-        target.x -= 0.5
+        target.x -= 2
 
     if inside(ball):
         speed.y -= 0.35
