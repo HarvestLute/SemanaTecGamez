@@ -12,6 +12,8 @@ Exercises
 from turtle import *
 #Se importo toda la liberia turtle
 import turtle
+#Se importo math para la generacion del triangulo
+import math
 from freegames import vector
 
 
@@ -23,7 +25,7 @@ def line(start, end):
     down()
     goto(end.x, end.y)
 
-
+#Se anadio el codigo que genera el rectangulo
 def square(start, end):
     """Draw square from start to end."""
     up()
@@ -34,6 +36,8 @@ def square(start, end):
     for count in range(4):
         forward(end.x - start.x)
         left(90)
+
+    end_fill()
 
     end_fill()
 
@@ -51,15 +55,39 @@ def circle(start, end):
 
     end_fill()
 
-
+#Se anadio el codigo que genera el rectangulo
 def rectangle(start, end):
     """Draw rectangle from start to end."""
-    pass  # TODO
+    up()
+    goto(start.x, start.y)
+    down()
+    begin_fill()
 
+    for count in range(2):
+        forward(end.x - start.x)
+        left(90)
+        forward(end.y - start.y)
+        left(90)
 
+    end_fill()
+
+#Se anadio el codigo que genera el triangulo
 def triangle(start, end):
     """Draw triangle from start to end."""
-    pass  # TODO
+    up()
+    goto(start.x, start.y)
+    down()
+    begin_fill()
+
+    side_length = math.sqrt((end.x - start.x)**2 + (end.y - start.y)**2)
+    angle = math.degrees(math.atan2(end.y - start.y, end.x - start.x))
+
+    setheading(angle)
+    for count in range(3):
+        forward(side_length)
+        left(120)
+
+    end_fill()
 
 
 def tap(x, y):
