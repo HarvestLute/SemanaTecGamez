@@ -18,6 +18,9 @@ car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
+#Nueva variable para la cantidad de taps
+taps = 0
+tiles_ocultas = 64
 
 
 def square(x, y):
@@ -45,19 +48,27 @@ def xy(count):
 
 def tap(x, y):
     """Update mark and hidden tiles based on tap."""
+    #Se declara taps como global y se incrementa en 1 cada vez que se hace un tap
+    global taps, tiles_ocultas
+    taps += 1
     spot = index(x, y)
     mark = state['mark']
-
     if mark is None or mark == spot or tiles[mark] != tiles[spot]:
         state['mark'] = spot
     else:
         hide[spot] = False
         hide[mark] = False
+        #se restan 2 tiles ocultas al total si se consiguio formar la pareja
+        tiles_ocultas -= 2
         state['mark'] = None
+        #Si se descubren todas las tiles, el juego reporta que se ha terminado
+    if tiles_ocultas == 0:
+        print("Game over")
 
 
 def draw():
     """Draw image and tiles."""
+    global tiles_ocultas
     clear()
     goto(0, 0)
     shape(car)
@@ -73,9 +84,17 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        goto(x + 2, y)
+        #Se modifico la posicion inicial del texto en x y y
+        goto(x + 25, y + 2)
         color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+        #Se agrego align center para centrar el texto en
+        write(tiles[mark], align="center", font=('Arial', 30, 'normal'))
+
+    
+    up()
+    goto(-180, 180)
+    color('black')
+    write(f'Taps: {taps}', font=('Arial', 16, 'normal'))
 
     update()
     ontimer(draw, 100)
